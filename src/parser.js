@@ -3,41 +3,32 @@ const fs = require('fs'),
 
 async function parse(fileContent) {
     const { ncrackrun } = await transformXML(fileContent);
-    console.log('ncrackrun');
-    console.log(ncrackrun);
     const findings = transformToFindings(ncrackrun);
-    console.log('findings');
-    console.log(findings);
     return findings;
 }
 
 function transformToFindings(ncrackrun) {
   const portFindings = ncrackrun.service.flatMap(({ address, port, credentials = []}) => {
-    if(credentials === null){
-      return [];
-    }
+    const { addr: ipAddress } = address[0]['$'];
+    const { protocol, portid, name: portName } = port[0]['$'];
+    
+    return credentials.map(credential => {
+      const { username, password } = credential['$'];
 
-    return credentials.map(credentials => {
       return {
-        name: credentials.service,
-        description: `Port ${openPort.port} is ${openPort.state} using ${openPort.protocol} protocol.`,
-        category: 'Open Port',
-        location: `${openPort.protocol}://${hostInfo.ip}:${openPort.port}`,
-        osi_layer: 'NETWORK',
-        severity: 'INFORMATIONAL',
+        name: `Credentials for Service ${portName}://${ipAddress}:${portid} discovered via bruteforce.`,
+        description: '',
+        category: 'Discovered Credentials',
+        location: `${portName}://${ipAddress}:${portid}`,
+        osi_layer: 'APPLICATION',
+        severity: 'HIGH',
         attributes: {
-          port: openPort.port,
-          state: openPort.state,
-          ip_address: hostInfo.ip,
-          mac_address: hostInfo.mac,
-          protocol: openPort.protocol,
-          hostname: hostInfo.hostname,
-          method: openPort.method,
-          operating_system: hostInfo.osNmap,
-          service: openPort.service,
-          serviceProduct: openPort.serviceProduct || null,
-          serviceVersion: openPort.serviceVersion || null,
-          scripts: openPort.scriptOutputs || null,
+          port: portid,
+          ip_address: ipAddress,
+          protocol: protocol,
+          service: portName,
+          username,
+          password,
         },
       };
     });

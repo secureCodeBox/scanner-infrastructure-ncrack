@@ -23,6 +23,7 @@ const uuid = require('uuid/v4');
 const fs = require("fs");
 const util = require("util");
 const readFile = util.promisify(fs.readFile);
+const { parse } = require('./parser');
 
 async function worker(targets) {
     console.log("Starting ncrack scan for target");
@@ -38,11 +39,11 @@ async function worker(targets) {
     console.log(stdout);
 
     const ncrackXml = await readFile('/tmp/ncrack.xml', {encoding:'utf8'});
-    console.log(ncrackXml);
+    const findings = await parse(ncrackXml);
 
     return {
-        result: [],
-        raw: [],
+        result: findings,
+        raw: [ncrackXml],
     }
 }
 
