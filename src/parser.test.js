@@ -51,3 +51,16 @@ it('should return findings when ncrack found credentials', async () => {
     `);
     expect(otherFindings.length).toBe(0);
 });
+
+it('should return no findings when ncrack has not found credentials scanning two services', async () => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    const ncrackXML = fs.readFileSync(
+        __dirname + '/__testFiles__/ncrack_two_services_no_results.xml',
+        {
+            encoding: 'utf8',
+        }
+    );
+    const findings = await parse(ncrackXML);
+
+    expect(findings.length).toBe(0);
+});
