@@ -24,7 +24,7 @@ WORKDIR /src
 RUN npm install --production
 COPY ./ /src
     
-# HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 CMD node healthcheck.js || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 CMD node healthcheck.js || exit 1
 
 ARG COMMIT_ID=unkown
 ARG REPOSITORY_URL=unkown
