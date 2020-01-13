@@ -64,3 +64,34 @@ it('should return no findings when ncrack has not found credentials scanning two
 
     expect(findings.length).toBe(0);
 });
+
+it('should return findings when ncrack found two credentials scanning two services', async () => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
+    const ncrackXML = fs.readFileSync(
+        __dirname + '/__testFiles__/ncrack_two_services_with_results.xml',
+        {
+            encoding: 'utf8',
+        }
+    );
+    const [finding, ...otherFindings] = await parse(ncrackXML);
+
+    expect(finding).toMatchInlineSnapshot(`
+        Object {
+          "attributes": Object {
+            "ip_address": "192.168.0.2",
+            "password": "55994bcdabd8b0b69d4cb32919",
+            "port": "22",
+            "protocol": "tcp",
+            "service": "ssh",
+            "username": "root",
+          },
+          "category": "Discovered Credentials",
+          "description": "",
+          "location": "ssh://192.168.0.2:22",
+          "name": "Credentials for Service ssh://192.168.0.2:22 discovered via bruteforce.",
+          "osi_layer": "APPLICATION",
+          "severity": "HIGH",
+        }
+    `);
+    expect(otherFindings.length).toBe(1);
+});
