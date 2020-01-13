@@ -1,0 +1,33 @@
+{
+    "name": "securebox-ncrack",
+    "version": "1.0.0",
+    "description": "SecureCodeBox Ncrack Scanner",
+    "author": "iteratec GmbH",
+    "license": "Apache-2.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "lint": "eslint .",
+        "pretest": "eslint .",
+        "test": "jest --silent --coverage",
+        "build-dev": "docker build -t dev_ncrack ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:secureCodeBox/scanner-infrastructure-ncrack.git"
+    },
+    "dependencies": {
+        "@securecodebox/scanner-scaffolding": "^2.2.5",
+        "execa": "^4.0.0",
+        "lodash": "^4.17.13",
+        "uuid": "^3.3.2",
+        "xml2js": "^0.4.19"
+    },
+    "devDependencies": {
+        "eslint": "^6.0.0",
+        "eslint-plugin-prettier": "^3.1.0",
+        "eslint-plugin-security": "^1.4.0",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2"
+    }
+}
