@@ -30,9 +30,11 @@ async function worker(targets) {
 
     const [target] = targets;
 
-    console.log('Executing: ' + ['ncrack', ...target.attributes.NCRACK_PARAMETER.split(' '), '-oX', '/tmp/ncrack.xml', target.location].join(' '))
+    const params = target.attributes.NCRACK_PARAMETER ? target.attributes.NCRACK_PARAMETER.split(' ') : [];
 
-    const {stdout} = await execa('ncrack', [...target.attributes.NCRACK_PARAMETER.split(' '), '-oX', '/tmp/ncrack.xml', target.location]);
+    console.log('Executing: ' + ['ncrack', ...params, '-oX', '/tmp/ncrack.xml', target.location].join(' '))
+
+    const {stdout} = await execa('ncrack', [...params, '-oX', '/tmp/ncrack.xml', target.location]);
     console.log(stdout);
 
     const ncrackXml = await readFile('/tmp/ncrack.xml', {encoding:'utf8'});
