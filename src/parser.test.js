@@ -15,6 +15,7 @@ afterAll(() => {
 });
 
 it('should return no findings when ncrack has not found credentials', async () => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const ncrackXML = fs.readFileSync(__dirname + '/__testFiles__/ncrack_no_results.xml', {
         encoding: 'utf8',
     });
@@ -24,6 +25,7 @@ it('should return no findings when ncrack has not found credentials', async () =
 });
 
 it('should return findings when ncrack found credentials', async () => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const ncrackXML = fs.readFileSync(__dirname + '/__testFiles__/ncrack_with_results.xml', {
         encoding: 'utf8',
     });

@@ -17,34 +17,42 @@
  * /
  */
 
-const _ = require('lodash');
 const execa = require('execa');
-const uuid = require('uuid/v4');
-const fs = require("fs");
-const util = require("util");
+const fs = require('fs');
+const util = require('util');
+// eslint-disable-next-line security/detect-non-literal-fs-filename
 const readFile = util.promisify(fs.readFile);
 const { parse } = require('./parser');
 
 async function worker(targets) {
-    console.log("Starting ncrack scan for target");
+    console.log('Starting ncrack scan for target');
     console.log(targets);
 
     const [target] = targets;
 
-    const params = target.attributes.NCRACK_PARAMETER ? target.attributes.NCRACK_PARAMETER.split(' ') : [];
+    const params = target.attributes.NCRACK_PARAMETER
+        ? target.attributes.NCRACK_PARAMETER.split(' ')
+        : [];
 
-    console.log('Executing: ' + ['ncrack', ...params, '-oX', '/tmp/ncrack.xml', target.location].join(' '))
+    console.log(
+        'Executing: ' + ['ncrack', ...params, '-oX', '/tmp/ncrack.xml', target.location].join(' ')
+    );
 
-    const {stdout} = await execa('ncrack', [...params, '-oX', '/tmp/ncrack.xml', target.location]);
+    const { stdout } = await execa('ncrack', [
+        ...params,
+        '-oX',
+        '/tmp/ncrack.xml',
+        target.location,
+    ]);
     console.log(stdout);
 
-    const ncrackXml = await readFile('/tmp/ncrack.xml', {encoding:'utf8'});
+    const ncrackXml = await readFile('/tmp/ncrack.xml', { encoding: 'utf8' });
     const findings = await parse(ncrackXml);
 
     return {
         result: findings,
         raw: [ncrackXml],
-    }
+    };
 }
 
 module.exports.worker = worker;
