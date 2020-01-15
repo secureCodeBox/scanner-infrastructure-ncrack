@@ -1,10 +1,10 @@
-[![Build Status](https://travis-ci.com/secureCodeBox/scanner-infrastructure-nmap.svg?branch=develop)](https://travis-ci.com/secureCodeBox/scanner-infrastructure-nmap)
+[![Build Status](https://travis-ci.com/secureCodeBox/scanner-infrastructure-ncrack.svg?branch=master)](https://travis-ci.com/secureCodeBox/scanner-infrastructure-ncrack)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Known Vulnerabilities](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-nmap/badge.svg)](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-nmap)
-[![GitHub release](https://img.shields.io/github/release/secureCodeBox/scanner-infrastructure-nmap.svg)](https://github.com/secureCodeBox/scanner-infrastructure-nmap/releases/latest)
+[![Known Vulnerabilities](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-ncrack/badge.svg)](https://snyk.io/test/github/secureCodeBox/scanner-infrastructure-ncrack)
+[![GitHub release](https://img.shields.io/github/release/secureCodeBox/scanner-infrastructure-ncrack.svg)](https://github.com/secureCodeBox/scanner-infrastructure-ncrack/releases/latest)
 
 # About
-This repository contains a self contained µService utilizing the NMAP Networkscanner for the secureCodeBox project.
+This repository contains a self contained µService utilizing the Ncrack Networkscanner for the secureCodeBox project.
 
 Further Documentation:
 * [Project Description][scb-project]
