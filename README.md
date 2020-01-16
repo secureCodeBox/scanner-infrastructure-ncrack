@@ -23,7 +23,7 @@ Example configuration:
 ```json
 [
     {
-        "name": "Ncrack",
+        "name": "ncrack",
         "context": "SSH Credential Scans",
         "target": {
             "name": "Local SSH",
