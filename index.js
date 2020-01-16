@@ -17,16 +17,17 @@
  * /
  */
 const ScannerScaffolding = require('@securecodebox/scanner-scaffolding');
-const { worker } = require('./src/ncrack');
+const { worker, testRun } = require('./src/ncrack');
 
 const scanner = new ScannerScaffolding(worker, {
     engineAddress: 'http://localhost:8080',
     workername: 'ncrack',
     topic: 'ncrack_brute_force_scan',
     async testScannerFunctionality() {
+        const version = await testRun();
         return {
-            version: 'unkown',
-            testRun: 'successful',
+            version,
+            testRun: 'successfull',
         };
     },
 });
