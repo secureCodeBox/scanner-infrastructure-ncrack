@@ -55,7 +55,7 @@ async function worker(targets) {
     };
 }
 
-async function testRun(){
+async function testRun() {
     const { stdout } = await execa('ncrack', ['--version']);
     const groups = /.*Ncrack version (\d+\.\d+).*/i.exec(stdout);
     return groups[1];
