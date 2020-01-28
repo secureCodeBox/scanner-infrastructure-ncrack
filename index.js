@@ -27,7 +27,7 @@ const scanner = new ScannerScaffolding(worker, {
         const version = await testRun();
         return {
             version,
-            testRun: 'successfull',
+            testRun: 'successful',
         };
     },
 });
